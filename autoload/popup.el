@@ -607,27 +607,27 @@ Accepts the same arguments as `display-buffer-in-side-window'. You must set
 ;;
 ;; Emacs backwards compatibility
 
-(unless (> emacs-major-version 26)
-  (progn
-    (defun +popup--set-window-dedicated-a (window)
-      "Ensure `window--display-buffer' respects `display-buffer-mark-dedicated'.
+;; (unless (> emacs-major-version 26)
+;;   (progn
+;;     (defun +popup--set-window-dedicated-a (window)
+;;       "Ensure `window--display-buffer' respects `display-buffer-mark-dedicated'.
 
-This was not so until recent Emacs 27 builds, where it causes breaking errors.
-This advice ensures backwards compatibility for Emacs <= 26 users."
-      (when (and (windowp window)
-                 display-buffer-mark-dedicated)
-        (set-window-dedicated-p
-         window
-         display-buffer-mark-dedicated))
-      window)
-    (dolist (targets
-             (list
-              (cons :filter-return (doom-enlist
-                                    (function
-                                     window--display-buffer)))))
-      (dolist (target (cdr targets))
-        (advice-add
-         target
-         (car targets)
-         (function
-          +popup--set-window-dedicated-a))))))
+;; This was not so until recent Emacs 27 builds, where it causes breaking errors.
+;; This advice ensures backwards compatibility for Emacs <= 26 users."
+;;       (when (and (windowp window)
+;;                  display-buffer-mark-dedicated)
+;;         (set-window-dedicated-p
+;;          window
+;;          display-buffer-mark-dedicated))
+;;       window)
+;;     (dolist (targets
+;;              (list
+;;               (cons :filter-return (doom-enlist
+;;                                     (function
+;;                                      window--display-buffer)))))
+;;       (dolist (target (cdr targets))
+;;         (advice-add
+;;          target
+;;          (car targets)
+;;          (function
+;;           +popup--set-window-dedicated-a))))))

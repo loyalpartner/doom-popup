@@ -18,6 +18,8 @@
 ;;
 ;;
 ;;; Code:
+(load-file "./autoload/settings.el")
+(load-file "./autoload/popup.el")
 
 (defconst +popup-window-parameters '(ttl quit select modeline popup)
   "A list of custom parameters to be added to `window-persistent-parameters'.
@@ -178,11 +180,10 @@ prevent the popup(s) from messing up the UI (or vice versa)."
 
 (add-hook 'doom-init-ui-hook #'+popup-mode 'append)
 
-(add-hook! '+popup-buffer-mode-hook
-           #'+popup-adjust-fringes-h
-           #'+popup-adjust-margins-h
-           #'+popup-set-modeline-on-enable-h
-           #'+popup-unset-modeline-on-disable-h)
-
+(progn
+  (add-hook '+popup-buffer-mode-hook #'+popup-unset-modeline-on-disable-h nil nil)
+  (add-hook '+popup-buffer-mode-hook #'+popup-set-modeline-on-enable-h nil nil)
+  (add-hook '+popup-buffer-mode-hook #'+popup-adjust-margins-h nil nil)
+  (add-hook '+popup-buffer-mode-hook #'+popup-adjust-fringes-h nil nil))
 
 (provide 'doom-popup)
