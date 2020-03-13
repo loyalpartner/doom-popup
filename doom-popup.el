@@ -20,6 +20,7 @@
 ;;; Code:
 (load-file "./autoload/settings.el")
 (load-file "./autoload/popup.el")
+(load-file "./+hacks.el")
 
 (defconst +popup-window-parameters '(ttl quit select modeline popup)
   "A list of custom parameters to be added to `window-persistent-parameters'.
@@ -185,5 +186,6 @@ prevent the popup(s) from messing up the UI (or vice versa)."
   (add-hook '+popup-buffer-mode-hook #'+popup-set-modeline-on-enable-h nil nil)
   (add-hook '+popup-buffer-mode-hook #'+popup-adjust-margins-h nil nil)
   (add-hook '+popup-buffer-mode-hook #'+popup-adjust-fringes-h nil nil))
+
 
 (provide 'doom-popup)
